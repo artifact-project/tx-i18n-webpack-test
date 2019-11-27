@@ -2,8 +2,7 @@ import { Configuration } from 'webpack';
 
 
 export default (module: Configuration['module']): Configuration => ({
-	context: __dirname,
-	entry: './example.tsx',
+	entry: `${__dirname}/example.tsx`,
 
 	output: {
 		path: __dirname,

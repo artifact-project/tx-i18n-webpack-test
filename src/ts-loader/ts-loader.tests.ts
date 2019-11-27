@@ -1,10 +1,11 @@
+import * as fs from 'fs';
 import * as webpack from 'webpack';
-import * as MemoryFS from 'memory-fs';
 import webpackConfig from '../../fixture/webpack.config';
 import { i18nTx, i18nExtractor } from 'tx-i18n/webpack';
 
-const fs = new MemoryFS();
-const localeOutput = `${__dirname}/ts-phrases.json`;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 15e3;
+
+const localeOutput = `${__dirname}/ts-loader.phrases.json`;
 const compiler = webpack({
 	...webpackConfig({
 		rules: [{
@@ -12,11 +13,10 @@ const compiler = webpack({
 			loader: 'ts-loader',
 			exclude: /node_modules/,
 			options: {
+				transpileOnly: true,
 				getCustomTransformers: () => ({
 					before: [
-						i18nTx({
-							packageName: `${__dirname}/../i18n/i18n`,
-						}),
+						i18nTx({}),
 					],
 					after: [],
 				}),
@@ -27,12 +27,9 @@ const compiler = webpack({
 	plugins: [
 		new i18nExtractor({
 			output: localeOutput,
-			outputFileSystem: fs,
 		}),
 	],
 });
-
-compiler.outputFileSystem = fs;
 
 it('ts-loader: Extract', async () => {
 	await new Promise((resolve, reject) => {
@@ -48,15 +45,14 @@ it('ts-loader: Extract', async () => {
 			resolve(new Promise(resolve => {
 				const content = fs.readFileSync(localeOutput) + '';
 
-				console.log(content)
-				// expect(JSON.parse(content)).toEqual({
-				// 	default: {
-				// 		'Демо': 'Демо',
-				// 		'Мы рады видеть тебя!': 'Мы рады видеть тебя!',
-				// 		'Привет, <1><#2></1>!': 'Привет, <1><#2></1>!',
-				// 		'Рубаха': 'Рубаха',
-				// 	},
-				// });
+				expect(JSON.parse(content)).toEqual({
+					default: {
+						'Демо': 'Демо',
+						'Мы рады видеть тебя!': 'Мы рады видеть тебя!',
+						'Привет, <1><#2></1>!': 'Привет, <1><#2></1>!',
+						'Рубаха': 'Рубаха',
+					},
+				});
 
 				resolve();
 			}));

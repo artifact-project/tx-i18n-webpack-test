@@ -67,3 +67,8 @@ package-lock.json
 # Distributive
 dist
 compiled
+
+# Test files
+**/*.js
+**/*.d.ts
+src/**/*.json
