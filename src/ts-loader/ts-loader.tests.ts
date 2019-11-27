@@ -1,8 +1,7 @@
 import * as webpack from 'webpack';
 import * as MemoryFS from 'memory-fs';
-import webpackConfig from './fixture/webpack.config';
-import { Extractor } from './plugin';
-import tx18n from '../transformer/transformer';
+import webpackConfig from '../../fixture/webpack.config';
+import { i18nTx, i18nExtractor } from 'tx-i18n/webpack';
 
 const fs = new MemoryFS();
 const localeOutput = `${__dirname}/ts-phrases.json`;
@@ -15,7 +14,7 @@ const compiler = webpack({
 			options: {
 				getCustomTransformers: () => ({
 					before: [
-						tx18n({
+						i18nTx({
 							packageName: `${__dirname}/../i18n/i18n`,
 						}),
 					],
@@ -26,7 +25,7 @@ const compiler = webpack({
 	}),
 
 	plugins: [
-		new Extractor({
+		new i18nExtractor({
 			output: localeOutput,
 			outputFileSystem: fs,
 		}),
@@ -49,6 +48,7 @@ it('ts-loader: Extract', async () => {
 			resolve(new Promise(resolve => {
 				const content = fs.readFileSync(localeOutput) + '';
 
+				console.log(content)
 				// expect(JSON.parse(content)).toEqual({
 				// 	default: {
 				// 		'Демо': 'Демо',

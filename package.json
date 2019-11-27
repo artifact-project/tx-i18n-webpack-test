@@ -7,7 +7,6 @@
     "test": "jest",
     "start": "npm test"
   },
-
   "devDependencies": {
     "@types/jest": "^19.2.3",
     "@types/node": "^10.9.1",
@@ -20,6 +19,7 @@
     "react-test-renderer": "^16.4.2",
     "ts-jest": "^20.0.4",
     "ts-loader": "^5.3.3",
+    "tx-i18n": "^0.5.2",
     "typescript": "^3.0.1",
     "webpack": "^4.29.3"
   },
