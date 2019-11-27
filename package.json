@@ -1,0 +1,43 @@
+{
+  "name": "tx-i18n-tests",
+  "private": true,
+  "author": "RubaXa <ibn@rubaxa.org>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "start": "npm test"
+  },
+
+  "devDependencies": {
+    "@types/jest": "^19.2.3",
+    "@types/node": "^10.9.1",
+    "@types/react": "^16.4.11",
+    "@types/webpack": "^4.4.24",
+    "awesome-typescript-loader": "^5.2.1",
+    "jest": "^20.0.3",
+    "memory-fs": "^0.4.1",
+    "react": "^16.4.2",
+    "react-test-renderer": "^16.4.2",
+    "ts-jest": "^20.0.4",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.0.1",
+    "webpack": "^4.29.3"
+  },
+  "peerDependencies": {
+    "react": ">=15.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "\\.tests\\.ts$",
+    "transformIgnorePatterns": [],
+    "setupTestFrameworkScriptFile": "<rootDir>/__jest__/extensions.ts",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
+  }
+}
