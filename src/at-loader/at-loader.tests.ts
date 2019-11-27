@@ -5,15 +5,15 @@ import { i18nTx, i18nExtractor } from 'tx-i18n/webpack';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 15e3;
 
-const localeOutput = `${__dirname}/ts-loader.phrases.json`;
+
+const localeOutput = `${__dirname}/at-loader.phrases.json`;
 const compiler = webpack({
 	...webpackConfig({
 		rules: [{
 			test: /\.tsx?$/,
-			loader: 'ts-loader',
+			loader: 'awesome-typescript-loader',
 			exclude: /node_modules/,
 			options: {
-				transpileOnly: true,
 				getCustomTransformers: () => ({
 					before: [ i18nTx({}) ],
 					after: [],
@@ -25,7 +25,7 @@ const compiler = webpack({
 	plugins: [ new i18nExtractor({ output: localeOutput }) ],
 });
 
-it('ts-loader: Extract', async () => {
+it('at-loader: Extract', async () => {
 	await new Promise((resolve, reject) => {
 		compiler.run((err, stats) => {
 			if (err || stats.hasErrors()) {
