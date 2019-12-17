@@ -37,17 +37,10 @@ it('at-loader: Extract', async () => {
 			}
 
 			resolve(new Promise(resolve => {
-				const content = fs.readFileSync(localeOutput) + '';
+				const actual = require(localeOutput);
+				const expected = require('../../fixture/example.phrases.json');
 
-				expect(JSON.parse(content)).toEqual({
-					default: {
-						'Демо': 'Демо',
-						'Мы рады видеть тебя!': 'Мы рады видеть тебя!',
-						'Привет, <1><#2></1>!': 'Привет, <1><#2></1>!',
-						'Рубаха': 'Рубаха',
-					},
-				});
-
+				expect(actual).toEqual(expected);
 				resolve();
 			}));
 		});
